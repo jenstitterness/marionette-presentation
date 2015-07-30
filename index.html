@@ -217,48 +217,37 @@ $('#backboneContainer').append(collectionViewInstance.$el);
 												<h3>Example 1 – Code</h3>
 												<pre>
 												<code data-trim contenteditable>
-			//Define model/collection
-			var Model = Backbone.Model.extend({
-				id: undefined
-			});
-			var Collection = Backbone.Collection.extend({model: Model});
+//Define model/collection
+var Model = Backbone.Model.extend({
+	id: undefined
+});
+var Collection = Backbone.Collection.extend({model: Model});
 
-			//Build views
-			var ChildView = Backbone.View.extend({
-				template: _.template("id <%= id %>"),
-				render: function() {
-					return this.$el.html(this.template(this.model.attributes));
-				}
-			});
+//Build views
+var ChildView = Marionette.ItemView.extend({
+		template: _.template("id <%= id %>"),
+		model: Model
+});
 
-			var CollectionView = Backbone.View.extend({
-				initialize: function() {this.views= [];},
-				render: function() {
-					if (this.collection) {
-						var self = this,
-								view;
-						this.collection.each(function(model) {
-							view = new ChildView({model: model});
-							self.$el.append(view.render());
-							self.views.push(view);
-						});
-					}
-				}
-			});
 
-			var exampleCollection = new Collection();
+var CollectionView = Marionette.CollectionView.extend({
+	childView: ChildView
+});
 
-			for (var i = 0; i < 5; i++) {
-				exampleCollection.add(new Model({id: i}));
-			}
+// build collection for collection view
+var exampleCollection = new Collection();
 
-			// create view object
-			var collectionViewInstance = new CollectionView({collection: exampleCollection});
+for (var i = 0; i < 5; i++) {
+	exampleCollection.add(new Model({id: i}));
+}
 
-			// render view and add to page
-			collectionViewInstance.render();
-			$('#backboneContainer').append(collectionViewInstance.$el);
+// create view object
+var collectionViewInstance = new CollectionView({collection: exampleCollection});
 
+// render view and add to page
+collectionViewInstance.render();
+// add to page
+$('#marionetteContainer').append(collectionViewInstance.$el);
 												</code>
 												</pre>
 											</section>
