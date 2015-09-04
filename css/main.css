@@ -1,0 +1,17 @@
+.childView {
+  border: 2px red solid !important;
+  margin: 5px !important;
+}
+
+.collectionView {
+  border: 2px yellow solid !important;
+  margin: 5px;
+}
+
+.collectionView::before {
+  content: 'collection view:'
+}
+
+.childView::before {
+  content: 'child view: ';
+}

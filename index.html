@@ -16,6 +16,8 @@
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/main.css">
+
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -67,86 +69,79 @@
 				<section>
 					<h3>Why have a front-end MVC framework?</h3>
 					<ul>
-						<li>Provides design pattern to follow when building web apps</li>
-						<li>Code quality improves since there is a pattern to follow</li>
-						<li>Improved browser support compared to custom solutions</li>
+						<li>Provides design patterns</li>
+						<li>Code quality improves</li>
+						<li>Improved browser support</li>
 						<li>Community backed support</li>
 					</ul>
 				</section>
 
 				<section>
 					<h3>What is Backbone.js?</h3>
-					<h5>Front-end MVC framework</h5>
+
 					<ul>
-						<li>Defined pattern for working with models and views</li>
-						<ul>
-							<li>Makes working with models/views easy</li>
-							<li>Easily extendable to add features</li>
-						</ul>
-					</ul>
-					<br><br>
-					<h5>Lightweight and open framework</h5>
-					<ul>
-						<li>Backbone doesn’t force a design pattern</li>
-							<ul>
-								<li>Flexible to meet most designs</li>
-							</ul>
-						<li>Provides basic amount of features to let users control how it is used</li>
-						<ul>
-							<li>Doesn’t provide every feature under the sun to remain flexible</li>
-						</ul>
+						<li>Front-end MVC framework</li>
+						<li>Consists of models, collections, and view</li>
+						<li>Easily extendable to add features</li>
+						<li>Flexible to meet most designs</li>
+						<li>Lightweight and open source</li>
 					</ul>
 				</section>
 
 
 				<section>
 					<h3>What is Marionette.js?</h3>
-					<p>Expands upon Backbone by providing more object, views, and features</p>
 					<ul>
-						<li>Think of Marionette as Backbone++</li>
-						<li>Reduces boilerplate/custom code by providing different view types</li>
-					</ul>
-					<p>Provides more defined project structure</p>
-					<ul>
-						<li>Since Backbone is open ended as to how projects should be design, Marionette provides addition structural options</li>
+						<li>A framework built on top of Backbone</li>
+						<li>Expands Backbone into full framework</li>
+						<li>Expands View types</li>
+						<li>Provides more defined project structure</li>
 					</ul>
 				</section>
 
 				<section>
 					<h3>Where does Backbone end...</h3>
-					<p>Backbone only provides model, collection, view, and router.</p>
-					<ul>
-						<li>Backbone provides a starting point for each object. To extend functionality you have to do it manually and to fit each use case. This leads to a lot of repeated boilerplate code.</li>
-					</ul>
+					<p>Backbone provides:
+						 <ul>
+						 	<li>model</li>
+							<li>collection</li>
+							<li>view</li>
+							<li>router</li>
+						 </ul>
 				</section>
 
 				<section>
 					<h3>...and Marionette begin?</h3>
 					<p>Marionette mostly expands on views but provides additional helpful features</p>
 					<ul>
-							<li>CollectionView - Used to display collections</li>
-							<li>ItemView - Meant to display a single item e.g. model, collection, template</li>
-							<li>CompositeView - Useful when a view needs complex data e.g. a view that displays a model and a collection</li>
-							<li>LayoutView - Used to manage regions or nested views </li>
-							<li>Regions - Used to manage views</li>
+						<li>Expanded views:
+
+							<ul>
+								<li>CollectionView</li>
+								<li>ItemView</li>
+								<li>CompositeView</li>
+							</ul>
+
+						</li>
+
+						<li>Structural objects
+								<ul>
+									<li>Regions</li>
+									<li>LayoutView</li>
+								</ul>
+						</li>
 					</ul>
+
 				</section>
 
 				<section>
 					<h3>Why should we use Marionette?</h3>
 					<ul>
-						<li>Backbone is designed to be flexible enough to run anywhere JavaScript runs. Marionette builds on Backbone to make it a more complete framework for building web apps</li>
-						<li>Using Marionette will help development because of less boilerplate code and thus increasing dev time</li>
-						<li>Easy to learn once you have an understanding of the Backbone library</li>
-					</ul>
-				</section>
-
-				<section>
-					<h3>Why should we use Marionette? Cont...</h3>
-					<ul>
-						<li>Teams in EWE are already adopting Backbone, some are already adopting Marionette</li>
-						<li>Marionette is currently the largest framework built on Backbone (community, adoption)</li>
-						<li>It’s Backbone, but with more vertebrae</li>
+						<li>Improves Backbone's flexibility</li>
+						<li>Improved dev productivity</li>
+						<li>Easy to learn</li>
+						<li>Largest Backbone framework community</li>
+						<li>EWE adopting Backbone already</li>
 					</ul>
 				</section>
 
@@ -168,6 +163,7 @@ var Collection = Backbone.Collection.extend({model: Model});
 
 //Build views
 var ChildView = Backbone.View.extend({
+	className: 'childView',
 	template: _.template("id <%= id %>"),
 	render: function() {
 		return this.$el.html(this.template(this.model.attributes));
@@ -175,6 +171,7 @@ var ChildView = Backbone.View.extend({
 });
 
 var CollectionView = Backbone.View.extend({
+	className: 'collectionView',
 	initialize: function() {this.views= [];},
 	render: function() {
 		if (this.collection) {
@@ -225,12 +222,14 @@ var Collection = Backbone.Collection.extend({model: Model});
 
 //Build views
 var ChildView = Marionette.ItemView.extend({
+		className: 'childView',
 		template: _.template("id <%= id %>"),
 		model: Model
 });
 
 
 var CollectionView = Marionette.CollectionView.extend({
+	className: 'collectionView',
 	childView: ChildView
 });
 
@@ -254,7 +253,7 @@ $('#marionetteContainer').append(collectionViewInstance.$el);
 										</section>
 
 
-
+<!--
 					<section>
 						<h3>Example 2 - Behaviors</h3>
 						<pre>
@@ -290,7 +289,7 @@ var View = Marionette.ItemView.extend({
 							</code>
 						</pre>
 					</section>
-
+-->
 					<section>
 						<p>Questions?</p>
 						<p>Comments?</p>

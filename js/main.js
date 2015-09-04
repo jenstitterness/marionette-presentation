@@ -15,6 +15,7 @@ var displayBackboneView = function() {
 
   //Build views
   var ChildView = Backbone.View.extend({
+    className: 'childView',
     template: _.template("id <%= id %>"),
     render: function() {
       return this.$el.html(this.template(this.model.attributes));
@@ -22,6 +23,7 @@ var displayBackboneView = function() {
   });
 
   var CollectionView = Backbone.View.extend({
+    className: 'collectionView',
     initialize: function() {this.views= [];},
     render: function() {
       if (this.collection) {
@@ -59,12 +61,14 @@ var displayMarionetteView = function() {
 
   //Build views
   var ChildView = Marionette.ItemView.extend({
+      className: 'childView',
       template: _.template("id <%= id %>"),
       model: Model
   });
 
 
   var CollectionView = Marionette.CollectionView.extend({
+    className: 'collectionView',
     childView: ChildView
   });
 
